@@ -21,8 +21,13 @@ export default {
 </script>
 
 <style lang="scss">
+* {
+  box-sizing: border-box;
+}
 html {
   background: black;
+  font-family: sans-serif;
+  color: #fff;
 }
 .container {
   max-width: 1200px;
