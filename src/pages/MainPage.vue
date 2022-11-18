@@ -29,11 +29,49 @@
     <div class="title container">
       Зарабатывай баллы и обменивай их на подписки!
     </div>
-    <div class="subscribes"></div>
+    <!-- <div class="subscribes container">
+
+    </div> -->
+    <div class="subscribes container">
+      <subscribe-card
+        v-for="(subscribe, index) in subscribes"
+        :key="index"
+        :name="subscribe.name"
+        :period="subscribe.period"
+        :price="subscribe.price"
+      ></subscribe-card>
+    </div>
   </div>
 </template>
 <script>
-export default {};
+import SubscribeCard from "../components/SubscribeCard.vue";
+
+export default {
+  components: {
+    SubscribeCard,
+  },
+  data() {
+    return {
+      subscribes: [
+        {
+          name: "Four in play",
+          period: 1,
+          price: 30,
+        },
+        {
+          name: "Four in play",
+          period: 3,
+          price: 30,
+        },
+        {
+          name: "Four in play",
+          period: 7,
+          price: 30,
+        },
+      ],
+    };
+  },
+};
 </script>
 <style lang="scss" scoped>
 .profileInfo {
@@ -125,5 +163,9 @@ export default {};
   width: 100%;
   text-align: center;
   padding-top: 74px;
+}
+.subscribes {
+  display: flex;
+  justify-content: space-between;
 }
 </style>
