@@ -23,7 +23,12 @@
           <div class="scoreText">SCORE:</div>
           <div class="score">0<img src="@/assets/img/star.png" alt="" /></div>
         </div>
-        <button class="about__right-bottom">Начать игру</button>
+        <!-- <button class="about__right-bottom" @click="$router.push('/play')">
+          Начать игру
+        </button> -->
+        <router-link :to="{ path: '/play' }" class="about__right-bottom">
+          Начать игру</router-link
+        >
       </div>
     </div>
     <div class="title container">
@@ -150,6 +155,8 @@ export default {
       padding-top: 10px;
       padding-bottom: 10px;
       margin-top: 16px;
+      text-align: center;
+      text-decoration: none;
       cursor: pointer;
       &:hover {
         border: 2px solid #ff9900;
@@ -163,6 +170,7 @@ export default {
   width: 100%;
   text-align: center;
   padding-top: 74px;
+  padding-bottom: 74px;
 }
 .subscribes {
   display: flex;

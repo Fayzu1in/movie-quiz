@@ -33,6 +33,11 @@ export default {
     &__period {
       font-size: 32px;
       margin: 0;
+      padding-bottom: 19px;
+    }
+    &__price {
+      font-size: 32px;
+      padding-bottom: 22px;
     }
   }
   .buyButton {
