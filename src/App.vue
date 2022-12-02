@@ -26,9 +26,13 @@ export default {
 }
 html {
   background: black;
+}
+#app {
+  background: black;
   font-family: sans-serif;
   color: #fff;
 }
+
 .container {
   max-width: 1200px;
   width: 100%;

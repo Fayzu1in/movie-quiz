@@ -7,10 +7,17 @@
           <img src="@/assets/img/heart.png" class="heart" />
           <img src="@/assets/img/heart.png" class="heart" />
         </div>
-        <div class="numberOfQuestion">{{ questionN }}/15</div>
-        <div class="time">00:04</div>
+        <div class="numberOfQuestion">{{}}/15</div>
+        <div class="time">{{ countDown }}s</div>
       </div>
-      <div class="quiz__progress"></div>
+      <div
+        class="quiz__progress"
+        id="myBar"
+        :style="{
+          width: progressWidth + '%',
+        }"
+      ></div>
+
       <div class="quiz__frame">
         <img src="@/assets/img/frame.png" alt="" />
       </div>
@@ -20,15 +27,25 @@
 </template>
 <script>
 export default {
+  components: {},
+  inject: ["countDown", "timer"],
   data() {
     return {
-      heart: "heart.png",
-      questionN: 1,
+      progressWidth: 100,
     };
+  },
+
+  methods: {},
+  created() {
+    console.log(this.countDown);
   },
 };
 </script>
 <style lang="scss">
+#myBar {
+  // width: 50%;
+  background: #ff9900;
+}
 .quiz {
   //   width: fit-content;
   display: flex;
@@ -43,8 +60,9 @@ export default {
   }
   &__progress {
     padding-bottom: 10px;
-    background: #ff9900;
-    width: 80%;
+    // background: #ff9900;
+    // width: 80%;
+    transition: all 1s;
   }
 }
 </style>
