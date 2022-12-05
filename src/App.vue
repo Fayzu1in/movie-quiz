@@ -1,7 +1,5 @@
 <template>
   <div id="app">
-    <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
-    <!-- <HelloWorld msg="Welcome to Your Vue.js App" /> -->
     <nav-bar></nav-bar>
     <router-view></router-view>
   </div>
@@ -9,13 +7,20 @@
 
 <script>
 import NavBar from "./components/NavBar.vue";
-// import HelloWorld from "./components/HelloWorld.vue";
 
 export default {
   name: "App",
   components: {
-    // HelloWorld,
     NavBar,
+  },
+  data() {
+    return {
+      currenQuestion: 0,
+      showScore: false,
+      score: 0,
+
+      startQuiz: false,
+    };
   },
 };
 </script>

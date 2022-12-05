@@ -26,6 +26,10 @@ export default {
 };
 </script>
 <style lang="scss">
+.quizCard {
+  display: flex;
+  justify-content: center;
+}
 .gameSection {
   display: flex;
   justify-content: flex-end;

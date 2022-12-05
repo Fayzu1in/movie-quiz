@@ -61,45 +61,6 @@ export default {
   },
   data() {
     return {
-      currenQuestion: 0,
-      showScore: false,
-      score: 0,
-      countDown: 10,
-      timer: null,
-      startQuiz: false,
-      questions: [
-        {
-          questionText: "Ты гей?",
-          questoinImage: "",
-          answerOptions: [
-            { answerText: "Да я 100% гей", isCorrect: true },
-            { answerText: "Да я 10% гей", isCorrect: false },
-            { answerText: "Да я 50% гей", isCorrect: false },
-            { answerText: "Да я 90% гей", isCorrect: false },
-          ],
-        },
-        {
-          questionText: "Ты пидор?",
-          questoinImage: "",
-          answerOptions: [
-            { answerText: "Да я 100% пидор", isCorrect: true },
-            { answerText: "Да я 10% пидор", isCorrect: false },
-            { answerText: "Да я 50% пидор", isCorrect: false },
-            { answerText: "Да я 90% пидор", isCorrect: false },
-          ],
-        },
-        {
-          questionText: "Ты черт?",
-          questoinImage: "",
-          answerOptions: [
-            { answerText: "Да я 100% черт", isCorrect: true },
-            { answerText: "Да я 10% черт", isCorrect: false },
-            { answerText: "Да я 50% черт", isCorrect: false },
-            { answerText: "Да я 90% черт", isCorrect: false },
-          ],
-        },
-      ],
-
       subscribes: [
         {
           name: "Four in play",
@@ -119,6 +80,7 @@ export default {
       ],
     };
   },
+
   // provide() {
   //   return {
   //     countDown: this.countDown,
@@ -128,20 +90,6 @@ export default {
   provide: {
     countDown: "countDown",
     timer: "timer",
-  },
-  methods: {
-    countDownTimer() {
-      if (this.countDown > 0) {
-        this.timer = setTimeout(() => {
-          this.countDown -= 1;
-          this.progressWidth -= 10;
-          this.countDownTimer();
-        }, 1000);
-      } else {
-        this.countDown = 10;
-        this.progressWidth = 100;
-      }
-    },
   },
 };
 </script>
