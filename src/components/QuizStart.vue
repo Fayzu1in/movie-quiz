@@ -3,9 +3,14 @@
     <div class="quiz">
       <div class="quiz__info">
         <div class="health">
-          <img src="@/assets/img/heart.png" class="heart" />
-          <img src="@/assets/img/heart.png" class="heart" />
-          <img src="@/assets/img/heart.png" class="heart" />
+          <img
+            v-for="i in health"
+            :key="i"
+            src="@/assets/img/heart.png"
+            class="heart"
+          />
+          <!-- <img src="@/assets/img/heart.png" class="heart" />
+          <img src="@/assets/img/heart.png" class="heart" /> -->
         </div>
         <div class="numberOfQuestion">{{ questionsAmount }}/15</div>
         <div class="time">{{ countDown }}s</div>
@@ -19,9 +24,19 @@
       ></div>
 
       <div class="quiz__frame">
-        <img src="@/assets/img/frame.png" alt="" />
+        <!-- <img src="@/assets/img/frame.png" alt="" /> -->
+        <img :src="questions[0].questionImage" alt="" />
       </div>
-      <div class="quiz__questions"></div>
+      <div class="answersSection">
+        <button
+          :key="index"
+          v-for="(option, index) in questions[currentQuestion].answerOptions"
+          class="answerBtn"
+          @click="answerClick(option.isCorrect)"
+        >
+          {{ option.answerText }}
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -29,21 +44,25 @@
 export default {
   components: {},
   // inject: ["countDown", "timer"],
+  inject: ["score"],
+
   data() {
     return {
+      currentQuestion: 0,
       progressWidth: 100,
       countDown: 10,
       timer: null,
       questionsAmount: 0,
+      health: 3,
       questions: [
         {
           questionText: "Ты гей?",
-          questoinImage: "",
+          questionImage: "/hollywood.jpg",
           answerOptions: [
-            { answerText: "Да я 100% гей", isCorrect: true },
-            { answerText: "Да я 10% гей", isCorrect: false },
-            { answerText: "Да я 50% гей", isCorrect: false },
-            { answerText: "Да я 90% гей", isCorrect: false },
+            { answerText: "Ты дебил", isCorrect: true },
+            { answerText: "Не дебил", isCorrect: false },
+            { answerText: "Дебилище", isCorrect: false },
+            { answerText: "Этот вопрос сосет", isCorrect: false },
           ],
         },
         {
@@ -100,8 +119,18 @@ export default {
 
       this.questionsAmount = this.questions.length;
     },
+    answerClick(isCorrect) {
+      clearTimeout(this.timer);
+      let nextQuestion = this.currentQuestion + 1;
+      if (isCorrect) {
+        this.score = this.score + 1;
+      }
+      if (nextQuestion < this.questions.length) {
+        this.currentQuestion = nextQuestion;
+      }
+    },
   },
-  beforeMount() {
+  mounted() {
     this.countDownTimer();
     this.questionsAmountFunc();
   },
@@ -111,7 +140,7 @@ export default {
   },
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 #myBar {
   // width: 50%;
   background: #ff9900;
@@ -123,16 +152,49 @@ export default {
   align-items: flex-start;
   max-width: 500px;
   width: 100%;
+  &__frame {
+    margin-bottom: 7px;
+    img {
+      max-width: 500px;
+    }
+  }
   &__info {
     display: flex;
     justify-content: space-between;
     width: 100%;
+    .health {
+      .heart {
+        padding-right: 5px;
+      }
+    }
   }
   &__progress {
     padding-bottom: 10px;
     // background: #ff9900;
     // width: 80%;
-    transition: all 1s;
+    transition: all 1s linear;
+  }
+  .answersSection {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    .answerBtn {
+      font-size: 16px;
+      background-color: #383838;
+      border: 3px solid transparent;
+      border-radius: 4px;
+      width: 240px;
+      color: #fff;
+      padding-top: 13px;
+      padding-bottom: 13px;
+      cursor: pointer;
+      margin-bottom: 10px;
+
+      &:hover {
+        border: 3px solid #ff9900;
+      }
+    }
   }
 }
 </style>

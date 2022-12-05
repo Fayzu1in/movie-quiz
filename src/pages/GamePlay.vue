@@ -5,7 +5,7 @@
         <div class="scoreInfo">
           <div class="scoreInfo__name">User Name</div>
           <div class="scoreInfo__score">
-            0
+            {{ score }}
             <img src="@/assets/img/star.png" alt="" />
           </div>
           <button class="scoreInfo__endGameBtn">Завершить</button>
@@ -22,6 +22,10 @@ import QuizStart from "../components/QuizStart.vue";
 export default {
   components: {
     QuizStart,
+  },
+  inject: ["score"],
+  mounted() {
+    console.log(this.score);
   },
 };
 </script>

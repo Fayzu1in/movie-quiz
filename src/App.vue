@@ -13,12 +13,13 @@ export default {
   components: {
     NavBar,
   },
+  // provide() {
+  //   return { score: this.score };
+  // },
   data() {
     return {
-      currenQuestion: 0,
       showScore: false,
-      score: 0,
-
+      // score: 0,
       startQuiz: false,
     };
   },

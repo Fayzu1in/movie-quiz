@@ -21,7 +21,9 @@
       <div class="about__right">
         <div class="about__right-top">
           <div class="scoreText">SCORE:</div>
-          <div class="score">0<img src="@/assets/img/star.png" alt="" /></div>
+          <div class="score">
+            {{ score }}<img src="@/assets/img/star.png" alt="" />
+          </div>
         </div>
         <!-- <button class="about__right-bottom" @click="$router.push('/play')">
           Начать игру
@@ -53,8 +55,10 @@
   </div>
 </template>
 <script>
+import { mapState } from "pinia";
 import SubscribeCard from "../components/SubscribeCard.vue";
-
+import { useQuizStore } from "../store";
+// const store = useStore;
 export default {
   components: {
     SubscribeCard,
@@ -80,7 +84,12 @@ export default {
       ],
     };
   },
-
+  computed: {
+    ...mapState(useQuizStore, ["score"]),
+  },
+  mounted() {
+    console.log(this.score);
+  },
   // provide() {
   //   return {
   //     countDown: this.countDown,
