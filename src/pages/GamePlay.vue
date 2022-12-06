@@ -19,13 +19,19 @@
 </template>
 <script>
 import QuizStart from "../components/QuizStart.vue";
+import { useQuizStore } from "../store";
+import { mapState } from "pinia";
+
 export default {
   components: {
     QuizStart,
   },
-  inject: ["score"],
+  // inject: ["score"],
   mounted() {
     console.log(this.score);
+  },
+  computed: {
+    ...mapState(useQuizStore, ["score"]),
   },
 };
 </script>

@@ -9,10 +9,10 @@
             src="@/assets/img/heart.png"
             class="heart"
           />
-          <!-- <img src="@/assets/img/heart.png" class="heart" />
-          <img src="@/assets/img/heart.png" class="heart" /> -->
         </div>
-        <div class="numberOfQuestion">{{ questionsAmount }}/15</div>
+        <div class="numberOfQuestion">
+          {{ currentQuestion + 1 }}/{{ questionsAmount }}
+        </div>
         <div class="time">{{ countDown }}s</div>
       </div>
       <div
@@ -25,7 +25,7 @@
 
       <div class="quiz__frame">
         <!-- <img src="@/assets/img/frame.png" alt="" /> -->
-        <img :src="questions[0].questionImage" alt="" />
+        <img :src="questions[currentQuestion].questionImage" alt="" />
       </div>
       <div class="answersSection">
         <button
@@ -44,10 +44,11 @@
 export default {
   components: {},
   // inject: ["countDown", "timer"],
-  inject: ["score"],
+  // inject: ["score"],
 
   data() {
     return {
+      startQuiz: false,
       currentQuestion: 0,
       progressWidth: 100,
       countDown: 10,
@@ -56,43 +57,43 @@ export default {
       health: 3,
       questions: [
         {
-          questionText: "Ты гей?",
+          // questionText: "",
           questionImage: "/hollywood.jpg",
           answerOptions: [
-            { answerText: "Ты дебил", isCorrect: true },
-            { answerText: "Не дебил", isCorrect: false },
-            { answerText: "Дебилище", isCorrect: false },
-            { answerText: "Этот вопрос сосет", isCorrect: false },
+            { answerText: "Мачо и ботан", isCorrect: true },
+            { answerText: "Шаг вперед", isCorrect: false },
+            { answerText: "Дорогой Джон", isCorrect: false },
+            { answerText: "Штурм белого дома", isCorrect: false },
           ],
         },
         {
-          questionText: "Ты пидор?",
-          questoinImage: "",
+          // questionText: "",
+          questionImage: "/anna.jpeg",
           answerOptions: [
-            { answerText: "Да я 100% пидор", isCorrect: true },
-            { answerText: "Да я 10% пидор", isCorrect: false },
-            { answerText: "Да я 50% пидор", isCorrect: false },
-            { answerText: "Да я 90% пидор", isCorrect: false },
+            { answerText: "", isCorrect: false },
+            { answerText: "", isCorrect: false },
+            { answerText: "", isCorrect: false },
+            { answerText: "Бегущий по лезвию 2049", isCorrect: true },
           ],
         },
         {
-          questionText: "Ты черт?",
-          questoinImage: "",
+          // questionText: "",
+          questionImage: "/jake.jpeg",
           answerOptions: [
-            { answerText: "Да я 100% черт", isCorrect: true },
-            { answerText: "Да я 10% черт", isCorrect: false },
-            { answerText: "Да я 50% черт", isCorrect: false },
-            { answerText: "Да я 90% черт", isCorrect: false },
+            { answerText: "test 3", isCorrect: true },
+            { answerText: "test 3", isCorrect: false },
+            { answerText: "test 3", isCorrect: false },
+            { answerText: "test 3", isCorrect: false },
           ],
         },
         {
-          questionText: "Ты черт?",
-          questoinImage: "",
+          // questionText: "",
+          questionImage: "/interstellar.jpeg",
           answerOptions: [
-            { answerText: "Да я 100% черт", isCorrect: true },
-            { answerText: "Да я 10% черт", isCorrect: false },
-            { answerText: "Да я 50% черт", isCorrect: false },
-            { answerText: "Да я 90% черт", isCorrect: false },
+            { answerText: "test 4", isCorrect: true },
+            { answerText: "test 4", isCorrect: false },
+            { answerText: "test 4", isCorrect: false },
+            { answerText: "test 4", isCorrect: false },
           ],
         },
       ],
@@ -108,8 +109,11 @@ export default {
           this.countDownTimer();
         }, 1000);
       } else {
+        this.currentQuestion += 1;
+        this.health -= 1;
         this.countDown = 10;
         this.progressWidth = 100;
+        this.countDownTimer();
       }
     },
     questionsAmountFunc() {
@@ -123,10 +127,14 @@ export default {
       clearTimeout(this.timer);
       let nextQuestion = this.currentQuestion + 1;
       if (isCorrect) {
-        this.score = this.score + 1;
+        this.score += 3;
+        // alert("right");
       }
       if (nextQuestion < this.questions.length) {
         this.currentQuestion = nextQuestion;
+        this.progressWidth = 100;
+        this.countDown = 10;
+        this.countDownTimer();
       }
     },
   },
@@ -136,7 +144,7 @@ export default {
   },
   created() {
     // console.log(this.countDown);
-    console.log(this.questionsAmount);
+    // console.log(this.questionsAmount);
   },
 };
 </script>
@@ -155,7 +163,8 @@ export default {
   &__frame {
     margin-bottom: 7px;
     img {
-      max-width: 500px;
+      width: 500px;
+      height: 300px;
     }
   }
   &__info {
