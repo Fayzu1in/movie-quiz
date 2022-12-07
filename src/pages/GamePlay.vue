@@ -8,12 +8,17 @@
             {{ score }}
             <img src="@/assets/img/star.png" alt="" />
           </div>
-          <button class="scoreInfo__endGameBtn">Завершить</button>
+          <button @click="startQuiz = !startQuiz" class="scoreInfo__endGameBtn">
+            Завершить
+          </button>
         </div>
       </div>
     </div>
     <div class="quizCard container">
-      <quiz-start></quiz-start>
+      <quiz-start
+        v-on:quizStartValue="QuizValue($event)"
+        v-if="startQuiz"
+      ></quiz-start>
     </div>
   </div>
 </template>
@@ -26,9 +31,21 @@ export default {
   components: {
     QuizStart,
   },
+  data() {
+    return {
+      startQuiz: true,
+    };
+  },
   // inject: ["score"],
+  methods: {
+    startQuizunc() {},
+    QuizValue: function (QuizValue) {
+      this.startQuiz = QuizValue;
+    },
+  },
   mounted() {
     console.log(this.score);
+    console.log(this.startQuiz);
   },
   computed: {
     ...mapState(useQuizStore, ["score"]),

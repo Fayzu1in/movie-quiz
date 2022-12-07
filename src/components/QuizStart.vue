@@ -24,7 +24,6 @@
       ></div>
 
       <div class="quiz__frame">
-        <!-- <img src="@/assets/img/frame.png" alt="" /> -->
         <img :src="questions[currentQuestion].questionImage" alt="" />
       </div>
       <div class="answersSection">
@@ -41,6 +40,17 @@
   </div>
 </template>
 <script>
+import { useQuizStore } from "../store";
+import { mapStores } from "pinia";
+// Чтобы изменить значение переменной в store,
+// необходимо в компоненте где будет даваться новое значение
+// прописать import { mapStores } from "pinia";
+// затем в computed прописать ...mapStores(названи стора),
+// и затем в функции где будет даватться новое значение, с помощью
+// this. назвние сторра и + к нему добавляем окончаниее Store(обязательно)
+// пример ниже this.quizStore.score += 3;
+//
+
 export default {
   components: {},
   // inject: ["countDown", "timer"],
@@ -48,16 +58,16 @@ export default {
 
   data() {
     return {
-      startQuiz: false,
+      // startQuiz: false,
       currentQuestion: 0,
       progressWidth: 100,
       countDown: 10,
       timer: null,
       questionsAmount: 0,
       health: 3,
+      startQuiz: true,
       questions: [
         {
-          // questionText: "",
           questionImage: "/hollywood.jpg",
           answerOptions: [
             { answerText: "Мачо и ботан", isCorrect: true },
@@ -67,30 +77,27 @@ export default {
           ],
         },
         {
-          // questionText: "",
           questionImage: "/anna.jpeg",
           answerOptions: [
-            { answerText: "", isCorrect: false },
-            { answerText: "", isCorrect: false },
-            { answerText: "", isCorrect: false },
+            { answerText: "test 2", isCorrect: false },
+            { answerText: "test 2", isCorrect: false },
+            { answerText: "test 2", isCorrect: false },
             { answerText: "Бегущий по лезвию 2049", isCorrect: true },
           ],
         },
         {
-          // questionText: "",
           questionImage: "/jake.jpeg",
           answerOptions: [
-            { answerText: "test 3", isCorrect: true },
+            { answerText: "NightCrawler", isCorrect: true },
             { answerText: "test 3", isCorrect: false },
             { answerText: "test 3", isCorrect: false },
             { answerText: "test 3", isCorrect: false },
           ],
         },
         {
-          // questionText: "",
           questionImage: "/interstellar.jpeg",
           answerOptions: [
-            { answerText: "test 4", isCorrect: true },
+            { answerText: "Interstellar", isCorrect: true },
             { answerText: "test 4", isCorrect: false },
             { answerText: "test 4", isCorrect: false },
             { answerText: "test 4", isCorrect: false },
@@ -98,6 +105,9 @@ export default {
         },
       ],
     };
+  },
+  computed: {
+    ...mapStores(useQuizStore),
   },
 
   methods: {
@@ -108,6 +118,11 @@ export default {
           this.progressWidth -= 10;
           this.countDownTimer();
         }, 1000);
+      } else if (this.questions.length - 1 == this.currentQuestion) {
+        this.startQuiz = false;
+        this.$emit("quizStartValue", this.startQuiz);
+      } else if (this.health === 0) {
+        this.startQuiz = false;
       } else {
         this.currentQuestion += 1;
         this.health -= 1;
@@ -117,24 +132,31 @@ export default {
       }
     },
     questionsAmountFunc() {
-      // for (let i = 0; i < this.questions.length; i++) {
-      //   console.log(i + 1);
-      // }
-
       this.questionsAmount = this.questions.length;
     },
+
     answerClick(isCorrect) {
       clearTimeout(this.timer);
       let nextQuestion = this.currentQuestion + 1;
       if (isCorrect) {
-        this.score += 3;
-        // alert("right");
+        console.log(this.quizStore);
+        this.quizStore.score += 3;
       }
       if (nextQuestion < this.questions.length) {
         this.currentQuestion = nextQuestion;
         this.progressWidth = 100;
         this.countDown = 10;
         this.countDownTimer();
+      }
+      if (this.health == 1) {
+        this.startQuiz = false;
+        this.$emit("quizStartValue", this.startQuiz);
+      }
+      if (!isCorrect) {
+        this.health -= 1;
+      } else if (nextQuestion == this.questions.length) {
+        this.startQuiz = false;
+        this.$emit("quizStartValue", this.startQuiz);
       }
     },
   },
@@ -150,7 +172,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 #myBar {
-  // width: 50%;
   background: #ff9900;
 }
 .quiz {
