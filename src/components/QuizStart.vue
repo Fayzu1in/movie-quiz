@@ -18,6 +18,7 @@
       <div
         class="quiz__progress"
         id="myBar"
+        :key="currentQuestion"
         :style="{
           width: progressWidth + '%',
         }"
@@ -58,7 +59,7 @@ export default {
 
   data() {
     return {
-      // startQuiz: false,
+      quizEnd: false,
       currentQuestion: 0,
       progressWidth: 100,
       countDown: 10,
@@ -121,8 +122,15 @@ export default {
       } else if (this.questions.length - 1 == this.currentQuestion) {
         this.startQuiz = false;
         this.$emit("quizStartValue", this.startQuiz);
+        this.quizEnd = true;
+        this.$emit("quizEndValue", this.quizEnd);
       } else if (this.health === 0) {
         this.startQuiz = false;
+      } else if (this.health == 1) {
+        this.startQuiz = false;
+        this.$emit("quizStartValue", this.startQuiz);
+        this.quizEnd = true;
+        this.$emit("quizEndValue", this.quizEnd);
       } else {
         this.currentQuestion += 1;
         this.health -= 1;
@@ -151,12 +159,16 @@ export default {
       if (this.health == 1) {
         this.startQuiz = false;
         this.$emit("quizStartValue", this.startQuiz);
+        this.quizEnd = true;
+        this.$emit("quizEndValue", this.quizEnd);
       }
       if (!isCorrect) {
         this.health -= 1;
       } else if (nextQuestion == this.questions.length) {
         this.startQuiz = false;
         this.$emit("quizStartValue", this.startQuiz);
+        this.quizEnd = true;
+        this.$emit("quizEndValue", this.quizEnd);
       }
     },
   },
@@ -202,7 +214,7 @@ export default {
     padding-bottom: 10px;
     // background: #ff9900;
     // width: 80%;
-    transition: all 1s linear;
+    transition: width 1s linear;
   }
   .answersSection {
     display: flex;

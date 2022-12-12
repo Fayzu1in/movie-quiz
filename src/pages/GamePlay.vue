@@ -17,35 +17,44 @@
     <div class="quizCard container">
       <quiz-start
         v-on:quizStartValue="QuizValue($event)"
+        v-on:quizEndValue="quizEndValue($event)"
         v-if="startQuiz"
       ></quiz-start>
+      <score-info v-if="quizEnd"></score-info>
     </div>
   </div>
 </template>
 <script>
 import QuizStart from "../components/QuizStart.vue";
+import ScoreInfo from "../components/ScoreInfo.vue";
 import { useQuizStore } from "../store";
 import { mapState } from "pinia";
 
 export default {
   components: {
     QuizStart,
+    ScoreInfo,
   },
   data() {
     return {
       startQuiz: true,
+      quizEnd: false,
     };
   },
   // inject: ["score"],
   methods: {
-    startQuizunc() {},
+    // startQuizFunc() {},
     QuizValue: function (QuizValue) {
       this.startQuiz = QuizValue;
+    },
+    quizEndValue: function (quizEndValue) {
+      this.quizEnd = quizEndValue;
     },
   },
   mounted() {
     console.log(this.score);
     console.log(this.startQuiz);
+    console.log(this.quizEnd);
   },
   computed: {
     ...mapState(useQuizStore, ["score"]),
@@ -56,6 +65,7 @@ export default {
 .quizCard {
   display: flex;
   justify-content: center;
+  // flex-direction: column;
 }
 .gameSection {
   display: flex;
