@@ -199,5 +199,6 @@ export default {
 .subscribes {
   display: flex;
   justify-content: space-between;
+  padding-bottom: 50px;
 }
 </style>

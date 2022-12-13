@@ -23,10 +23,12 @@ export default {
   width: 100%;
   display: flex;
   flex-direction: column;
+
   .subscribe {
     display: flex;
     flex-direction: column;
     align-items: center;
+
     &__name {
       font-size: 22px;
     }

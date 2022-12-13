@@ -16,10 +16,11 @@
     </div>
     <div class="quizCard container">
       <quiz-start
+        v-if="startQuiz"
         v-on:quizStartValue="QuizValue($event)"
         v-on:quizEndValue="quizEndValue($event)"
-        v-if="startQuiz"
       ></quiz-start>
+
       <score-info v-if="quizEnd"></score-info>
     </div>
   </div>
@@ -67,6 +68,7 @@ export default {
   justify-content: center;
   // flex-direction: column;
 }
+
 .gameSection {
   display: flex;
   justify-content: flex-end;
