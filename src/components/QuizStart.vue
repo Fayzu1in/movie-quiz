@@ -25,9 +25,45 @@
       ></div>
 
       <div class="quiz__frame">
+        <div class="incorrect">
+          <img class="incorrect__close" src="/close.png" alt="" />
+          <div
+            class="incorrect__title"
+            :key="index"
+            v-for="(option, index) in questions[currentQuestion].answerOptions"
+          >
+            Упс. Ты не угадал <br />
+            Верный ответ <br />
+            "{{
+              questions[option].answerOptions.find(
+                (option) => option.isCorrect == true
+              ).answerText
+            }}"
+          </div>
+
+          <p class="incorrect__nextQuestionBtn" @click="nextQuestion()">
+            Продолжить
+          </p>
+        </div>
+
+        <div v-if="this.endGameWarningBtn" class="warning">
+          <img
+            class="warning__close"
+            @click="warningClose()"
+            src="/close.png"
+            alt=""
+          />
+          <div class="warning__title">
+            При завершении игры набранные баллы будут потеряны
+          </div>
+
+          <router-link class="endBtnLink" :to="{ path: '/' }">
+            <p class="warning__endBtn" @click="endGame()">Завершить</p>
+          </router-link>
+        </div>
         <img :src="questions[currentQuestion].questionImage" alt="" />
       </div>
-      <div class="answersSection">
+      <div v-if="!this.endGameWarningBtn" class="answersSection">
         <button
           :key="index"
           v-for="(option, index) in questions[currentQuestion].answerOptions"
@@ -36,6 +72,7 @@
         >
           {{ option.answerText }}
         </button>
+        <!-- {{ this.endGameBtn }} -->
       </div>
     </div>
   </div>
@@ -56,7 +93,7 @@ export default {
   components: {},
   // inject: ["countDown", "timer"],
   // inject: ["score"],
-
+  props: ["endGameWarningBtn"],
   data() {
     return {
       quizEnd: false,
@@ -67,6 +104,7 @@ export default {
       questionsAmount: 0,
       health: 3,
       startQuiz: true,
+      endWarningValue: null,
       questions: [
         {
           questionImage: "/hollywood.jpg",
@@ -112,13 +150,23 @@ export default {
   },
 
   methods: {
+    endGame() {
+      confirm("r u sure?");
+      this.quizStore.score = 0;
+    },
+
+    warningClose() {
+      this.endWarningValue = false;
+      this.$emit("endWarningValue", this.endWarningValue);
+    },
+
     countDownTimer() {
       if (this.countDown > -1) {
         this.timer = setTimeout(() => {
           this.countDown -= 1;
           this.progressWidth -= 10;
           this.countDownTimer();
-        }, 1000);
+        }, 100000);
       } else if (this.questions.length - 1 == this.currentQuestion) {
         this.startQuiz = false;
         this.$emit("quizStartValue", this.startQuiz);
@@ -147,7 +195,7 @@ export default {
       clearTimeout(this.timer);
       let nextQuestion = this.currentQuestion + 1;
       if (isCorrect) {
-        console.log(this.quizStore);
+        // console.log(this.quizStore);
         this.quizStore.score += 3;
       }
       if (nextQuestion < this.questions.length) {
@@ -180,6 +228,12 @@ export default {
     // console.log(this.countDown);
     // console.log(this.questionsAmount);
   },
+  beforeUpdate() {
+    // console.log(this.endGameBtn);
+    if (this.endGameWarningBtn == true) {
+      // alert("changed");
+    }
+  },
 };
 </script>
 <style lang="scss" scoped>
@@ -195,6 +249,47 @@ export default {
   width: 100%;
   &__frame {
     margin-bottom: 7px;
+    position: relative;
+    .warning {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      // text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.312);
+      backdrop-filter: blur(5px);
+      text-align: center;
+      &__close {
+        height: 20px;
+        width: 20px;
+        cursor: pointer;
+        position: absolute;
+        right: 20px;
+        top: 15px;
+      }
+      &__title {
+        // font-weight: 600;
+        font-size: 18px;
+        padding: 0 70px;
+      }
+      .endBtnLink {
+        position: absolute;
+        bottom: 25px;
+        text-decoration: none;
+      }
+      &__endBtn {
+        text-decoration: none;
+        color: #fff;
+        background-color: red;
+        padding: 4px 50px;
+        cursor: pointer;
+
+        font-size: 18px;
+      }
+    }
     img {
       width: 500px;
       height: 300px;
@@ -203,6 +298,7 @@ export default {
   &__info {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     width: 100%;
     .health {
       .heart {

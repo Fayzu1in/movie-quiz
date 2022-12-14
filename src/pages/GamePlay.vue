@@ -8,9 +8,14 @@
             {{ score }}
             <img src="@/assets/img/star.png" alt="" />
           </div>
-          <button @click="startQuiz = !startQuiz" class="scoreInfo__endGameBtn">
+          <button
+            v-if="!endGameWarningBtn"
+            @click="startQuizFunc()"
+            class="scoreInfo__endGameBtn"
+          >
             Завершить
           </button>
+          <div v-if="endGameWarningBtn" class="transparent"></div>
         </div>
       </div>
     </div>
@@ -19,6 +24,8 @@
         v-if="startQuiz"
         v-on:quizStartValue="QuizValue($event)"
         v-on:quizEndValue="quizEndValue($event)"
+        :endGameWarningBtn="endGameWarningBtn"
+        v-on:endWarningValue="endWarningValue($event)"
       ></quiz-start>
 
       <score-info v-if="quizEnd"></score-info>
@@ -40,11 +47,17 @@ export default {
     return {
       startQuiz: true,
       quizEnd: false,
+      endGameWarningBtn: false,
     };
   },
   // inject: ["score"],
   methods: {
-    // startQuizFunc() {},
+    endWarningValue: function (endWarningValue) {
+      this.endGameWarningBtn = endWarningValue;
+    },
+    startQuizFunc() {
+      this.endGameWarningBtn = true;
+    },
     QuizValue: function (QuizValue) {
       this.startQuiz = QuizValue;
     },
@@ -53,9 +66,9 @@ export default {
     },
   },
   mounted() {
-    console.log(this.score);
-    console.log(this.startQuiz);
-    console.log(this.quizEnd);
+    // console.log(this.score);
+    // console.log(this.startQuiz);
+    // console.log(this.quizEnd);
   },
   computed: {
     ...mapState(useQuizStore, ["score"]),
@@ -67,6 +80,7 @@ export default {
   display: flex;
   justify-content: center;
   // flex-direction: column;
+  margin-top: 35px;
 }
 
 .gameSection {
@@ -105,6 +119,11 @@ export default {
     font-size: 18px;
     padding: 4px 50px;
     cursor: pointer;
+    margin-top: 13px;
+  }
+  .transparent {
+    width: 192px;
+    height: 29px;
     margin-top: 13px;
   }
 }
