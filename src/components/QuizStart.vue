@@ -25,20 +25,18 @@
       ></div>
 
       <div class="quiz__frame">
-        <div class="incorrect">
-          <img class="incorrect__close" src="/close.png" alt="" />
-          <div
-            class="incorrect__title"
-            :key="index"
-            v-for="(option, index) in questions[currentQuestion].answerOptions"
-          >
+        <div v-if="incorrect" class="incorrect">
+          <!-- <img class="incorrect__close" src="/close.png" alt="" /> -->
+          <div class="incorrect__title">
             Упс. Ты не угадал <br />
-            Верный ответ <br />
-            "{{
-              questions[option].answerOptions.find(
-                (option) => option.isCorrect == true
-              ).answerText
-            }}"
+            Верный ответ: <br />
+            <p class="incorrect__title-answertxt">
+              "{{
+                questions[currentQuestion].answerOptions.find(
+                  (i) => i.isCorrect === true
+                ).answerText
+              }}"
+            </p>
           </div>
 
           <p class="incorrect__nextQuestionBtn" @click="nextQuestion()">
@@ -64,14 +62,16 @@
         <img :src="questions[currentQuestion].questionImage" alt="" />
       </div>
       <div v-if="!this.endGameWarningBtn" class="answersSection">
-        <button
-          :key="index"
-          v-for="(option, index) in questions[currentQuestion].answerOptions"
-          class="answerBtn"
-          @click="answerClick(option.isCorrect)"
-        >
-          {{ option.answerText }}
-        </button>
+        <div class="showAnswers" v-if="this.showAnswers">
+          <button
+            :key="index"
+            v-for="(option, index) in questions[currentQuestion].answerOptions"
+            class="answerBtn"
+            @click="answerClick(option.isCorrect)"
+          >
+            {{ option.answerText }}
+          </button>
+        </div>
         <!-- {{ this.endGameBtn }} -->
       </div>
     </div>
@@ -105,6 +105,8 @@ export default {
       health: 3,
       startQuiz: true,
       endWarningValue: null,
+      incorrect: false,
+      showAnswers: true,
       questions: [
         {
           questionImage: "/hollywood.jpg",
@@ -190,10 +192,18 @@ export default {
     questionsAmountFunc() {
       this.questionsAmount = this.questions.length;
     },
+    nextQuestion() {
+      this.incorrect = false;
+      this.currentQuestion += 1;
+      this.progressWidth = 100;
+      this.showAnswers = true;
 
+      this.countDownTimer();
+    },
     answerClick(isCorrect) {
       clearTimeout(this.timer);
       let nextQuestion = this.currentQuestion + 1;
+
       if (isCorrect) {
         // console.log(this.quizStore);
         this.quizStore.score += 3;
@@ -211,7 +221,12 @@ export default {
         this.$emit("quizEndValue", this.quizEnd);
       }
       if (!isCorrect) {
+        this.showAnswers = false;
+        this.progressWidth = 0;
+        clearTimeout(this.timer);
+        this.currentQuestion -= 1;
         this.health -= 1;
+        this.incorrect = true;
       } else if (nextQuestion == this.questions.length) {
         this.startQuiz = false;
         this.$emit("quizStartValue", this.startQuiz);
@@ -250,6 +265,44 @@ export default {
   &__frame {
     margin-bottom: 7px;
     position: relative;
+    .incorrect {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      // text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.312);
+      backdrop-filter: blur(5px);
+      text-align: center;
+      &__close {
+        height: 20px;
+        width: 20px;
+        cursor: pointer;
+        position: absolute;
+        right: 20px;
+        top: 15px;
+      }
+      &__title {
+        font-size: 18px;
+        padding: 0 70px;
+        &-answertxt {
+        }
+      }
+      &__nextQuestionBtn {
+        text-decoration: none;
+        color: #fff;
+        background-color: #ff9900;
+        padding: 4px 50px;
+        cursor: pointer;
+        position: absolute;
+        bottom: 25px;
+
+        font-size: 18px;
+      }
+    }
     .warning {
       position: absolute;
       width: 100%;
@@ -313,10 +366,11 @@ export default {
     transition: width 1s linear;
   }
   .answersSection {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-
+    .showAnswers {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
     .answerBtn {
       font-size: 16px;
       background-color: #383838;
