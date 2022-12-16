@@ -168,7 +168,7 @@ export default {
           this.countDown -= 1;
           this.progressWidth -= 10;
           this.countDownTimer();
-        }, 100000);
+        }, 1000);
       } else if (this.questions.length - 1 == this.currentQuestion) {
         this.startQuiz = false;
         this.$emit("quizStartValue", this.startQuiz);
@@ -220,6 +220,7 @@ export default {
         this.quizEnd = true;
         this.$emit("quizEndValue", this.quizEnd);
       }
+
       if (!isCorrect) {
         this.showAnswers = false;
         this.progressWidth = 0;

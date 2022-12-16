@@ -63,6 +63,9 @@ export default {
     },
     quizEndValue: function (quizEndValue) {
       this.quizEnd = quizEndValue;
+      if (this.quizEnd == true) {
+        this.endGameWarningBtn = true;
+      }
     },
   },
   mounted() {
