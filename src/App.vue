@@ -2,6 +2,8 @@
   <div id="app">
     <nav-bar></nav-bar>
     <router-view></router-view>
+    {{data}}
+    <button @click="data()">Data</button>
   </div>
 </template>
 
@@ -23,6 +25,11 @@ export default {
       startQuiz: false,
     };
   },
+  methods:{
+    data(){
+      
+    }
+  }
 };
 </script>
 

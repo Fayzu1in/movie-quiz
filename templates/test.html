@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% comment %} <form action="" method="post" enctype="multipart/form-data">
+        <label for="file">Choose image:</label>
+        <input type="file" name='file' id='file'>
+        <br>
+        <div class="input__box">
+            {% csrf_token %}
+            <label for="answer">Enter option 1: </label>    
+            <input type="text" name="answer" id="answer">
+            <input type="radio" name="isCorrect" id='isCorrect'>Correct</input>
+        </div>
+        <div class="input__box">
+            <label for="answer">Enter option 2: </label>    
+
+            <input type="text" name="answer" id="answer">
+            <input type="radio" name="isCorrect" id='isCorrect'>Correct</input>
+        </div>
+        <div class="input__box">
+            <label for="answer">Enter option 3: </label>    
+
+            <input type="text" name="answer" id="answer">
+            <input type="radio" name="isCorrect" id='isCorrect'>Correct</input>
+        </div>
+        <div class="input__box">
+            <label for="answer">Enter option 4: </label>    
+
+            <input type="text" name="answer" id="answer">
+            <input type="radio" name="isCorrect" id='isCorrect'>Correct</input>
+        </div>
+        <input type="submit">
+    </form> {% endcomment %}
+   {% for i in data %}
+    <div>
+        <img src="{{i.questionImage.url}}" alt="" width='400px' height='400px'>
+        <br>
+        {{i.answer1}}
+        <br>
+        {{i.answer2}}
+        <br>
+
+        {{i.answer3}}
+        <br>
+
+        {{i.answer4}}
+    </div>
+    {% endfor %}
+</body>
+</html>
