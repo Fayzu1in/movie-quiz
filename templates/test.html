@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,20 +38,13 @@
         </div>
         <input type="submit">
     </form> {% endcomment %}
-   {% for i in data %}
+
     <div>
-        <img src="{{i.questionImage.url}}" alt="" width='400px' height='400px'>
-        <br>
-        {{i.answer1}}
-        <br>
-        {{i.answer2}}
-        <br>
-
-        {{i.answer3}}
-        <br>
-
-        {{i.answer4}}
+        {{data}}
     </div>
-    {% endfor %}
+
+
+    
+<script src="{% static 'js/script.js' %}"></script>
 </body>
 </html>

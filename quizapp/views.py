@@ -6,6 +6,8 @@ from .models import Question
 import json
 
 questions = Question.objects.all()
+# data = json.dumps(list(Question.objects.order_by(
+# 'id')[:10].values('questionImage', 'answer1', 'answer2', 'answer3', 'answer4', 'answers',)))
 data = []
 
 
@@ -14,7 +16,6 @@ class HomeView(TemplateView):
     template_name = "test.html"
     data = []
     questionData = {}
-    print(questions[0].answer1)
     for question in questions:
         questionData = {
             'questionImage': question.questionImage.url,
@@ -25,10 +26,12 @@ class HomeView(TemplateView):
             'correctAnswer': question.answers
         }
         data.append(questionData)
+    json_data = json.dumps(data)
+    print(json_data)
 
     def get_context_data(self, **kwargs):
         global data
         context = super().get_context_data(**kwargs)
         context["questions"] = questions
-        context['data'] = json.dumps(data)
+        context['data'] = data
         return context

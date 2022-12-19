@@ -2,12 +2,12 @@
   <div id="app">
     <nav-bar></nav-bar>
     <router-view></router-view>
-    {{data}}
-    <button @click="data()">Data</button>
+    <!-- <button @click="data()">Data</button> -->
   </div>
 </template>
 
 <script>
+
 import NavBar from "./components/NavBar.vue";
 
 export default {
@@ -23,6 +23,7 @@ export default {
       showScore: false,
       // score: 0,
       startQuiz: false,
+      // data: '{{data}}'
     };
   },
   methods:{
@@ -30,6 +31,7 @@ export default {
       
     }
   }
+
 };
 </script>
 
