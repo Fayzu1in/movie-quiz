@@ -214,8 +214,8 @@ export default {
       if (isCorrect) {
         // console.log(this.quizStore);
         this.quizStore.score += 3;
-        let nextQuestion = this.currentQuestion + 1;
       }
+      let nextQuestion = this.currentQuestion + 1;
       if (nextQuestion < this.questions.length) {
         this.currentQuestion = nextQuestion;
         // this.progressWidth = 100;
