@@ -103,7 +103,7 @@ export default {
     return {
       quizEnd: false,
       currentQuestion: 0,
-      progressWidth: 100,
+      // progressWidth: 100,
       countDown: 10,
       timer: null,
       questionsAmount: 0,
@@ -154,6 +154,9 @@ export default {
   },
   computed: {
     ...mapStores(useQuizStore),
+    progressWidth() {
+      return this.countDown * 10;
+    },
   },
 
   methods: {
@@ -171,7 +174,7 @@ export default {
       if (this.countDown > -1) {
         this.timer = setTimeout(() => {
           this.countDown -= 1;
-          this.progressWidth -= 10;
+          // this.progressWidth -= 10;
           this.countDownTimer();
         }, 100000);
       } else if (this.questions.length - 1 == this.currentQuestion) {
@@ -190,7 +193,7 @@ export default {
         this.currentQuestion += 1;
         this.health -= 1;
         this.countDown = 10;
-        this.progressWidth = 100;
+        // this.progressWidth = 100;
         this.countDownTimer();
       }
     },
@@ -200,22 +203,22 @@ export default {
     nextQuestion() {
       this.incorrect = false;
       this.currentQuestion += 1;
-      this.progressWidth = 100;
+      // this.progressWidth = 100;
       this.showAnswers = true;
 
       this.countDownTimer();
     },
     answerClick(isCorrect) {
       clearTimeout(this.timer);
-      let nextQuestion = this.currentQuestion + 1;
 
       if (isCorrect) {
         // console.log(this.quizStore);
         this.quizStore.score += 3;
+        let nextQuestion = this.currentQuestion + 1;
       }
       if (nextQuestion < this.questions.length) {
         this.currentQuestion = nextQuestion;
-        this.progressWidth = 100;
+        // this.progressWidth = 100;
         this.countDown = 10;
         this.countDownTimer();
       }
@@ -228,7 +231,7 @@ export default {
 
       if (!isCorrect) {
         this.showAnswers = false;
-        this.progressWidth = 0;
+        // this.progressWidth = 0;
         clearTimeout(this.timer);
         this.currentQuestion -= 1;
         this.health -= 1;
