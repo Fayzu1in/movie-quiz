@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@popperjs/core": "^2.11.6",
+    "axios": "^1.2.1",
     "bootstrap": "^5.2.3",
     "bootstrap-vue": "^2.23.1",
     "core-js": "^3.8.3",
@@ -16,6 +17,7 @@
     "sass": "^1.56.1",
     "sass-loader": "^13.2.0",
     "vue": "^2.7.14",
+    "vue-axios": "^3.5.2",
     "vue-router": "^3.6.5"
   },
   "devDependencies": {

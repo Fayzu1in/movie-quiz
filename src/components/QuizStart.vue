@@ -80,6 +80,11 @@
 <script>
 import { useQuizStore } from "../store";
 import { mapStores } from "pinia";
+import Vue from "vue";
+import axios from "axios";
+import VueAxios from "vue-axios";
+Vue.use(VueAxios, axios);
+
 // Чтобы изменить значение переменной в store,
 // необходимо в компоненте где будет даваться новое значение
 // прописать import { mapStores } from "pinia";
@@ -168,7 +173,7 @@ export default {
           this.countDown -= 1;
           this.progressWidth -= 10;
           this.countDownTimer();
-        }, 1000);
+        }, 100000);
       } else if (this.questions.length - 1 == this.currentQuestion) {
         this.startQuiz = false;
         this.$emit("quizStartValue", this.startQuiz);
@@ -239,6 +244,9 @@ export default {
   mounted() {
     this.countDownTimer();
     this.questionsAmountFunc();
+    Vue.axios.get("http://127.0.0.1:8000/api/questions/").then((response) => {
+      console.log(response.data);
+    });
   },
   created() {
     // console.log(this.countDown);
