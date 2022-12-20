@@ -30,7 +30,9 @@ export default {
     data(){
       
     }
-  }
+  },
+
+  
 
 };
 </script>

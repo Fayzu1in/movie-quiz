@@ -26,8 +26,8 @@ class HomeView(TemplateView):
             'correctAnswer': question.answers
         }
         data.append(questionData)
-    json_data = json.dumps(data)
-    print(json_data)
+    # json_data = json.dumps(data)
+    # print(json_data)
 
     def get_context_data(self, **kwargs):
         global data
