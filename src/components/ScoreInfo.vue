@@ -29,7 +29,7 @@ export default {
 .infoCard {
   display: flex;
   justify-content: center;
-  margin-top: 50px;
+  margin-top: 20px;
   height: 100%;
   align-items: center;
 }

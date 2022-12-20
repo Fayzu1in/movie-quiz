@@ -84,6 +84,9 @@ export default {
   justify-content: center;
   // flex-direction: column;
   margin-top: 35px;
+  @media only screen and (max-width: 420px) {
+    padding-bottom: 30px;
+  }
 }
 
 .gameSection {
@@ -116,17 +119,22 @@ export default {
     }
   }
   &__endGameBtn {
-    background: red;
+    border: 3px solid transparent;
+    background: #383838;
+    border-radius: 4px;
     color: white;
-    border: none;
+
     font-size: 18px;
     padding: 4px 50px;
     cursor: pointer;
     margin-top: 13px;
+    &:hover {
+      border: 3px solid red;
+    }
   }
   .transparent {
-    width: 192px;
-    height: 29px;
+    width: 198px;
+    height: 35px;
     margin-top: 13px;
   }
 }

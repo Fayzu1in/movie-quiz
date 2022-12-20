@@ -21,6 +21,9 @@ export default {};
   padding-top: 14px;
   padding-bottom: 14px;
   margin-bottom: 14px;
+  @media only screen and (max-width: 420px) {
+    margin-bottom: 0px;
+  }
   // 40px of bottom
 }
 .profileImg {

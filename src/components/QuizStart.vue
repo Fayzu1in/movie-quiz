@@ -263,6 +263,9 @@ export default {
   align-items: flex-start;
   max-width: 500px;
   width: 100%;
+  @media only screen and (max-width: 420px) {
+    max-width: 340px;
+  }
   &__frame {
     margin-bottom: 7px;
     position: relative;
@@ -347,6 +350,10 @@ export default {
     img {
       width: 500px;
       height: 300px;
+      @media only screen and (max-width: 420px) {
+        width: 340px;
+        height: 210px;
+      }
     }
   }
   &__info {
@@ -357,6 +364,14 @@ export default {
     .health {
       .heart {
         padding-right: 5px;
+        @media only screen and (max-width: 420px) {
+          height: 17px;
+        }
+      }
+    }
+    .numberOfQuestion {
+      @media only screen and (max-width: 420px) {
+        padding-right: 30px;
       }
     }
   }
@@ -367,10 +382,16 @@ export default {
     transition: width 1s linear;
   }
   .answersSection {
+    @media only screen and (max-width: 420px) {
+      width: 100%;
+    }
     .showAnswers {
       display: flex;
       justify-content: space-between;
       flex-wrap: wrap;
+      @media only screen and (max-width: 420px) {
+        justify-content: center;
+      }
     }
     .answerBtn {
       font-size: 16px;
@@ -383,9 +404,18 @@ export default {
       padding-bottom: 13px;
       cursor: pointer;
       margin-bottom: 10px;
+      @media only screen and (max-width: 420px) {
+        cursor: none;
+        width: 100%;
+        padding-top: 7px;
+        padding-bottom: 7px;
+      }
 
       &:hover {
         border: 3px solid #ff9900;
+        @media only screen and (max-width: 420px) {
+          border: none;
+        }
       }
     }
   }

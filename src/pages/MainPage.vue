@@ -68,18 +68,18 @@ export default {
       subscribes: [
         {
           name: "Four in play",
-          period: 1,
-          price: 30,
+          period: "1 день",
+          price: 27,
         },
         {
           name: "Four in play",
-          period: 3,
-          price: 30,
+          period: "3 дня",
+          price: 79,
         },
         {
           name: "Four in play",
-          period: 7,
-          price: 30,
+          period: "7 дней",
+          price: 180,
         },
       ],
     };
@@ -110,32 +110,56 @@ export default {
   width: fit-content;
   padding-bottom: 16px;
   margin-top: 54px;
+  @media only screen and (max-width: 420px) {
+    margin-top: 0px;
+  }
   &__img {
     height: 72px;
     border-radius: 50%;
     margin-right: 24px;
+    @media only screen and (max-width: 420px) {
+      height: 40px;
+      margin-right: 10px;
+    }
   }
   &__name {
     color: #fff;
     font-size: 64px;
     padding-right: 20px;
+    @media only screen and (max-width: 420px) {
+      font-size: 22px;
+
+      padding-right: 10px;
+    }
   }
 }
 .about {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  @media only screen and (max-width: 420px) {
+    flex-direction: column;
+  }
   &__left {
     &-top {
       font-size: 54px;
       font-weight: 500;
       padding-top: 16px;
       padding-bottom: 16px;
+      @media only screen and (max-width: 420px) {
+        font-size: 22px;
+        padding-bottom: 7px;
+      }
       .gameName {
         padding-right: 8px;
+        @media only screen and (max-width: 420px) {
+          padding-right: 4px;
+        }
       }
       .gameName2 {
         color: #ff9900;
+        @media only screen and (max-width: 420px) {
+        }
       }
     }
     &-bottom {
@@ -143,6 +167,11 @@ export default {
       width: 100%;
       font-size: 18px;
       color: #9b9b9a;
+      @media only screen and (max-width: 420px) {
+        max-width: 340px;
+        width: 100%;
+        font-size: 16px;
+      }
     }
   }
   &__right {
@@ -150,6 +179,10 @@ export default {
     width: 100%;
     display: flex;
     flex-direction: column;
+    @media only screen and (max-width: 420px) {
+      // max-width: 320px;
+      // width: 100%;
+    }
     &-top {
       display: flex;
       justify-content: space-between;
@@ -157,15 +190,26 @@ export default {
       font-size: 22px;
       border-bottom: 1px solid rgb(49, 49, 52);
       padding-bottom: 16px;
+      @media only screen and (max-width: 420px) {
+        font-size: 18px;
+        margin-top: 30px;
+      }
       .scoreText {
         color: #9b9b9a;
       }
       .score {
         display: flex;
         // align-items: flex-end;
+        @media only screen and (max-width: 420px) {
+        }
         img {
           padding-left: 15px;
           margin-top: -5px;
+          @media only screen and (max-width: 420px) {
+            height: 25px;
+            margin-top: -3px;
+            padding-left: 7px;
+          }
         }
       }
     }
@@ -173,7 +217,7 @@ export default {
       text-transform: uppercase;
       background: #383838;
       color: #fff;
-      border: 2px solid transparent;
+      border: 3px solid transparent;
       border-radius: 4px;
       font-size: 22px;
       padding-top: 10px;
@@ -182,8 +226,15 @@ export default {
       text-align: center;
       text-decoration: none;
       cursor: pointer;
+      @media only screen and (max-width: 420px) {
+        cursor: unset;
+        font-size: 18px;
+      }
       &:hover {
-        border: 2px solid #ff9900;
+        border: 3px solid #ff9900;
+        @media only screen and (max-width: 420px) {
+          border: unset;
+        }
       }
     }
   }
@@ -195,10 +246,23 @@ export default {
   text-align: center;
   padding-top: 74px;
   padding-bottom: 74px;
+  @media only screen and (max-width: 420px) {
+    font-size: 22px;
+    max-width: 320px;
+    width: 100%;
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
 }
 .subscribes {
   display: flex;
   justify-content: space-between;
   padding-bottom: 50px;
+
+  @media only screen and (max-width: 420px) {
+    flex-direction: column;
+    padding-bottom: 30px;
+    align-items: center;
+  }
 }
 </style>

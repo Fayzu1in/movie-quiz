@@ -7,7 +7,6 @@
 </template>
 
 <script>
-
 import NavBar from "./components/NavBar.vue";
 
 export default {
@@ -26,18 +25,17 @@ export default {
       // data: '{{data}}'
     };
   },
-  methods:{
-    data(){
-      
-    }
-  }
-
+  methods: {
+    data() {},
+  },
 };
 </script>
 
 <style lang="scss">
 * {
   box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 html {
   background: black;
@@ -52,5 +50,9 @@ html {
   max-width: 1200px;
   width: 100%;
   margin: 0 auto;
+  @media only screen and (max-width: 420px) {
+    max-width: 340px;
+    width: 100%;
+  }
 }
 </style>
