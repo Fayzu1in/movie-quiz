@@ -8,24 +8,24 @@ import json
 questions = Question.objects.all()
 # data = json.dumps(list(Question.objects.order_by(
 # 'id')[:10].values('questionImage', 'answer1', 'answer2', 'answer3', 'answer4', 'answers',)))
-data = []
+# data = []
 
 
 class HomeView(TemplateView):
-    global data
+    # global data
     template_name = "test.html"
-    data = []
-    questionData = {}
-    for question in questions:
-        questionData = {
-            'questionImage': question.questionImage.url,
-            'answerText1': question.answer1,
-            'answerText2': question.answer2,
-            'answerText3': question.answer3,
-            'answerText4': question.answer4,
-            'correctAnswer': question.answers
-        }
-        data.append(questionData)
+    # data = []
+    # questionData = {}
+    # for question in questions:
+    #     questionData = {
+    #         'questionImage': question.questionImage.url,
+    #         'answerText1': question.answer1,
+    #         'answerText2': question.answer2,
+    #         'answerText3': question.answer3,
+    #         'answerText4': question.answer4,
+    #         'correctAnswer': question.correct
+    #     }
+    #     data.append(questionData)
     # json_data = json.dumps(data)
     # print(json_data)
 
@@ -33,5 +33,5 @@ class HomeView(TemplateView):
         global data
         context = super().get_context_data(**kwargs)
         context["questions"] = questions
-        context['data'] = data
+        # context['data'] = data
         return context

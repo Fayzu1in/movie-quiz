@@ -19,12 +19,13 @@ class Question(models.Model):
     answer2 = models.CharField(("Answer 2"), max_length=100, blank=False)
     answer3 = models.CharField(("Answer 3"), max_length=100, blank=False)
     answer4 = models.CharField(("Answer 4"), max_length=100, blank=False)
-    answers = models.CharField(
+    correct = models.CharField(
         verbose_name='Correct answer is',
         max_length=30,
         choices=options,
         default=False,
     )
+ 
 
     class Meta:
         verbose_name = ("Question")
