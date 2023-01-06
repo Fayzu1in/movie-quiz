@@ -25,7 +25,6 @@ class Question(models.Model):
         choices=options,
         default=False,
     )
- 
 
     class Meta:
         verbose_name = ("Question")
@@ -36,3 +35,21 @@ class Question(models.Model):
 
     def get_absolute_url(self):
         return reverse("Question_detail", kwargs={"pk": self.pk})
+
+
+class Qst(models.Model):
+
+    questionImage = models.ImageField(("Question picture"), upload_to='quiz_images',
+                                      height_field=None, width_field=None, max_length=None, blank=True, null=True)
+    answerText = models.CharField(("Question text"), max_length=100)
+    isCorrect = models.BooleanField(("Correct"))
+
+    class Meta:
+        verbose_name = ("Qst")
+        verbose_name_plural = ("Qsts")
+
+    def __str__(self):
+        return self.answerText
+
+    def get_absolute_url(self):
+        return reverse("Qst_detail", kwargs={"pk": self.pk})
